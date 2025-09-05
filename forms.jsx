@@ -46,13 +46,21 @@ function App() {
         const password = formData.get("password")
         const description = formData.get("description")
         const employmentStatus = formData.get("employmentStatus")
-        const dietaryRestrictions = formData.getAll("dietaryRestrictions")
+        const dietaryRestrictions = formData.getAll("dietaryRestrictions")  // only one that needs a getAll
+        const favColour = formData.get("favColour")
 
         console.log(email)
         console.log(password)
         console.log(description)
         console.log(employmentStatus)
         console.log(dietaryRestrictions)
+        console.log(favColour)
+
+        // If you want to grab all the form entries at once!
+        // const allEntries = Object.fromEntries(formData)
+        // console.log(allEntries)
+
+
     }
 
     return (
@@ -115,7 +123,26 @@ function App() {
                 </label>
             </fieldset>
 
+            {/* Drop down / select
+                select needs a NAME attribute to identify it in formData
+                Each option needs a VALUE attribute that is then linked to the NAME attibute when selected
+                disabled attribute can be added to make an option not selectable (good for default value)
+                set the dafault value of select to be the chosen option
+            */}
+            <label htmlFor="favColour">What is your favourite colour? </label>
+            <select id="favColour" name="favColour" defaultValue="" required> {/* required means something needs selecting and defaultValue is set to the default option we want */}
+                <option value="" disabled>-- Choose a colour --</option> {/* disabled means this one can't be selected! Good for the default option */}
+                <option value="red">Red</option>
+                <option value="orange">Orange</option>
+                <option value="yellow">Yellow</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="indigo">Indigo</option>
+                <option value="violet">Violet</option>
+            </select>
+          
 
+            {/* */}
 
             
             <button>Submit</button>
