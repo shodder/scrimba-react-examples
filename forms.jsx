@@ -24,8 +24,19 @@ using onSubmit attribute
 
 function App() {
   
-    //handle the form submission and stop the refresh
+    // Proper way to do form submission
+    // use action={} in the form and then spec the function
+    // Using this method, React handles passing in the form data, stopping the default
+    // form submission event and reseting the form at the end - all for "free"
+    function signUp(formData) {
+        const email = formData.get("email")
+        const password = formData.get("password")
+        console.log(email)
+        console.log(password)
+    }
 
+    // old style using onSubmit in the form rather than using action
+    //handle the form submission and stop the refresh
     function handleSubmit(event) {
         event.preventDefault() // stop the event to try to do the REST action/page refresh
         const formElement = event.currentTarget // this gets the entire form passed in via the event
@@ -40,7 +51,8 @@ function App() {
     return (
     <section>
         <h1>Signup form</h1>
-        <form onSubmit={handleSubmit} method="post">
+        {/* <form onSubmit={handleSubmit} method="post"> OLD WAY*/}
+        <form action={signUp} method="post"> OLD WAY
             <label htmlFor="emailId">Email:</label>
             <input id="emailId" type="email" name="email" placeholder="person@email.com" />  
             <br />
