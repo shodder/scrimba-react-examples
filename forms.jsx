@@ -57,9 +57,19 @@ function App() {
         console.log(favColour)
 
         // If you want to grab all the form entries at once!
-        // const allEntries = Object.fromEntries(formData)
-        // console.log(allEntries)
+        const allEntriesNotQuite = Object.fromEntries(formData)
+        console.log(allEntriesNotQuite)
 
+        // problem with the above is to do with the checked items which have multiple items
+        // you always have to deal with that seperately so...
+        let mostEntries = Object.fromEntries(formData)
+        const dietRestrict = formData.getAll("dietaryRestrictions")  // only one that needs a getAll
+        const allEntries = {
+            ...mostEntries,
+            dietaryRestrictions: dietRestrict,
+        }
+
+        console.log(allEntries)
 
     }
 
