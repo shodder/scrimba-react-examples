@@ -23,17 +23,6 @@ using onSubmit attribute
 */
 
 function App() {
-  
-    // Proper way to do form submission
-    // use action={} in the form and then spec the function
-    // Using this method, React handles passing in the form data, stopping the default
-    // form submission event and reseting the form at the end - all for "free"
-    function signUp(formData) {
-        const email = formData.get("email")
-        const password = formData.get("password")
-        console.log(email)
-        console.log(password)
-    }
 
     // old style using onSubmit in the form rather than using action
     //handle the form submission and stop the refresh
@@ -47,19 +36,88 @@ function App() {
         formElement.reset() // force the form to reset! Clear the info
 
     }
-  
+
+    // Proper way to do form submission
+    // use action={} in the form and then spec the function
+    // Using this method, React handles passing in the form data, stopping the default
+    // form submission event and reseting the form at the end - all for "free"
+    function signUp(formData) {
+        const email = formData.get("email")
+        const password = formData.get("password")
+        const description = formData.get("description")
+        const employmentStatus = formData.get("employmentStatus")
+        const dietaryRestrictions = formData.getAll("dietaryRestrictions")
+
+        console.log(email)
+        console.log(password)
+        console.log(description)
+        console.log(employmentStatus)
+        console.log(dietaryRestrictions)
+    }
+
     return (
     <section>
         <h1>Signup form</h1>
         {/* <form onSubmit={handleSubmit} method="post"> OLD WAY*/}
         <form action={signUp} method="post"> OLD WAY
             <label htmlFor="emailId">Email:</label>
-            <input id="emailId" type="email" name="email" placeholder="person@email.com" />  
+            <input 
+                id="emailId" 
+                type="email" 
+                name="email" 
+                defaultValue="person@email.com" />  {/* Use default value just so you don't have to keep tying during test" */}
             <br />
             <label htmlFor="passwordId">Password:</label>
-            <input id="passwordId" type="password" name="password" />  
+            <input id="passwordId" type="password" name="password" defaultValue="123" />  
             <br />
 
+            <label htmlFor="description">Description</label>
+            <textarea id="description" name="description" defaultValue="Description yo!"></textarea> 
+
+            {/* Radio Buttons 
+                Give radio buttons the same name so only 1 is clickable (of the same name) *
+                default=true to set it by default! Can only have 1 in radio
+                Value sets the actual value set in the form data. YOU HAVE TO SET THIS TO GET A VALUE! 
+                Easy to get in code as formData.get("employmentStatus") can only have a single value
+            */}
+            <fieldset className="field-set-radio">
+                <legend>Employement Status</legend>
+                <label>
+                    <input type="radio" name="employmentStatus" value="student"/> 
+                    Student
+                </label>
+                <label>
+                    <input type="radio" name="employmentStatus" value="part-time"/>
+                    Part-time
+                </label>
+                <label>
+                    <input type="radio" name="employmentStatus" value="full-time" defaultChecked={true}/> 
+                    Full-time
+                </label>
+            </fieldset>
+
+            {/* With checked box, you can have multiple values so when getting use
+                formData.getAll("dietaryRestrictions")
+             */}
+            <fieldset>
+                <legend>Dietary restrictions:</legend>
+                <label>
+                    <input type="checkbox" name="dietaryRestrictions" value="kosher" />
+                    Kosher
+                </label>
+                <label>
+                    <input type="checkbox" name="dietaryRestrictions" value="vegan" />
+                    Vegan
+                </label>
+                <label>
+                    <input type="checkbox" name="dietaryRestrictions" defaultChecked={true} value="gluten-free" />
+                    Gluten-free
+                </label>
+            </fieldset>
+
+
+
+            
             <button>Submit</button>
 
         </form>
