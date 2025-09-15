@@ -20,7 +20,7 @@ export default function App() {
     function toggleFavorite() {
         console.log("Toggle Favorite")
         setContact(prevContactState => {
-          //get the current state of the object (call is "prev" as it is really the previous state before being acted on by this function)
+          // get the current state of the object (call is "prev" as it is really the previous state before being acted on by this function)
           // and return a brand new object by spreading the current one and updating only the fields you want to!
           // Looks odd but this works! The explicit "isFavorite" at the end will overwrite the field from the spread
           return {
