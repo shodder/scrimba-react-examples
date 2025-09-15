@@ -45,8 +45,7 @@ export default function App() {
         )
     }
 
-    // set the star icon
-    let starIcon = contact.isFavorite ? starFilled : starEmpty;
+    
     
     return (
         <main>
@@ -57,19 +56,10 @@ export default function App() {
                     alt="User profile picture of John Doe"
                 />
                 <div className="info">
-                    <button
-                        onClick={toggleFavoriteFull}
-                        // onClick={toggleFavorite}
-                        aria-pressed={contact.isFavorite}
-                        aria-label={contact.isFavorite ?  "Remove from favourites" : "Add to favourites"}
-                        className="favorite-button"
-                    >
-                        <img
-                            src={starIcon}
-                            alt={contact.isFavorite ?  "filled star icon" : "empty star icon"}
-                            className="favorite"
-                        />
-                    </button>
+                    {/* As this is a custom component HTML attributes such as onClick don't work as React
+                    thinks all attributes are customer attributes so you need to pass events down and handle 
+                    in the component */}
+                    <Star isFilled={contact.isFavorite} handleClick={toggleFavorite}/>
                     <h2 className="name">
                         {contact.firstName} {contact.lastName}
                     </h2>
@@ -81,6 +71,40 @@ export default function App() {
         </main>
     )
 }
+
+/**
+ * Challenge: Move the star image into its own component (Star)
+ * - It should receive a prop called `isFilled` that it
+ *   uses to determine which icon it will display. (You'll
+ *   need to import the 2 star icons into that new component first).
+ * - Import and render that component, passing the value of
+ *   `isFavorite` to the new `isFilled` prop.
+ * - Don't worry about the abiliity to flip this value quite yet.
+ *   Instead, you can test if it's working by manually changing
+ *   `isFavorite` in state above.
+*/
+function Star(props) {
+    // set the star icon
+    let starIcon = props.isFilled ? starFilled : starEmpty;
+
+    return (
+        <button
+            // onClick={toggleFavoriteFull}
+            // onClick={toggleFavorite}
+            onClick={props.handleClick}
+            aria-pressed={props.isFilled}
+            aria-label={props.isFilled ?  "Remove from favourites" : "Add to favourites"}
+            className="favorite-button"
+        >
+            <img
+                src={starIcon}
+                alt={props.isFilled ?  "filled star icon" : "empty star icon"}
+                className="favorite"
+            />
+        </button>
+    )
+}
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(

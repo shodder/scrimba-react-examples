@@ -46,18 +46,43 @@ export default function App() {
       setCount(count - 1)
     }
     
+     /**
+     * Challenge:
+     * - Create a new component called `Count`
+     *    - It should receive a prop called `number`, whose value
+     *      is the current value of our count
+     *    - Have the component render the h2.count element below
+     *      and display the incoming prop `number`
+     * - Replace the h2.count below with an instance of
+     *   the new Count component, passing the correct value
+     *   to its `number` prop.
+     * - After doing this, everything should be working the
+     *   same as before.
+     */
+
+    
+    console.log("App rendered")
     return (
         <main>
-            <h1>How many times will Bob say "state" in this section?</h1>
             <div className="counter">
                 <button onClick={handleMinusClick}>–</button>
-                <h2 className="count">{count}</h2>
+                
+                {/* Pass the state of count to the component! */}
+                <Count number={count} />
+                
                 <button onClick={handlePlusClick}>+</button>
             </div>
           </main>
     )
 }
 
+
+function Count(props) {
+    console.log(`Count rendered with ${props.number}`)
+    return (
+        <h2 className="count">{props.number}</h2>
+    )
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
