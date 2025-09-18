@@ -77,7 +77,7 @@ function App() {
     <section>
         <h1>Signup form</h1>
         {/* <form onSubmit={handleSubmit} method="post"> OLD WAY*/}
-        <form action={signUp} method="post"> OLD WAY
+        <form action={signUp} method="post">
             <label htmlFor="emailId">Email:</label>
             <input 
                 id="emailId" 
